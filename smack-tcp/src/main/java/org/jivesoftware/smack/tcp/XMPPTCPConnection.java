@@ -177,7 +177,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
     /**
      * 
      */
-    private final SynchronizationPoint<XMPPException> maybeCompressFeaturesReceived = new SynchronizationPoint<XMPPException>(
+    protected final SynchronizationPoint<XMPPException> maybeCompressFeaturesReceived = new SynchronizationPoint<XMPPException>(
                     this);
 
     /**
@@ -651,7 +651,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
         }
     }
 
-    private void initReaderAndWriter() throws IOException {
+    protected void initReaderAndWriter() throws IOException {
         InputStream is = socket.getInputStream();
         OutputStream os = socket.getOutputStream();
         if (compressionHandler != null) {
@@ -1051,13 +1051,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                             getSASLAuthentication().challengeReceived(challengeData);
                             break;
                         case Success.ELEMENT:
-                            Success success = new Success(parser.nextText());
-                            // We now need to bind a resource for the connection
-                            // Open a new stream and wait for the response
-                            openStream();
-                            // The SASL authentication with the server was successful. The next step
-                            // will be to bind the resource
-                            getSASLAuthentication().authenticated(success);
+                            parseLoginSuccess(parser);
                             break;
                         case Compressed.ELEMENT:
                             // Server confirmed that it's possible to use stream compression. Start
@@ -1179,6 +1173,17 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                 }
             }
         }
+    }
+
+    protected void parseLoginSuccess(XmlPullParser parser) throws IOException, XmlPullParserException,
+            SmackException {
+        Success success = new Success(parser.nextText());
+        // We now need to bind a resource for the connection
+        // Open a new stream and wait for the response
+        openStream();
+        // The SASL authentication with the server was successful. The next step
+        // will be to bind the resource
+        getSASLAuthentication().authenticated(success);
     }
 
     protected class PacketWriter {
