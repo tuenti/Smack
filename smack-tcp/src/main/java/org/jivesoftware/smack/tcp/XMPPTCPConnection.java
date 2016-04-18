@@ -177,7 +177,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
     /**
      * 
      */
-    protected final SynchronizationPoint<XMPPException> maybeCompressFeaturesReceived = new SynchronizationPoint<XMPPException>(
+    private final SynchronizationPoint<XMPPException> maybeCompressFeaturesReceived = new SynchronizationPoint<XMPPException>(
                     this);
 
     /**
