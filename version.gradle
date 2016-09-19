@@ -1,6 +1,6 @@
 allprojects {
 	ext {
-		shortVersion = '4.1.6-tuenti-2'
+		shortVersion = '4.1.6-tuenti2'
 		isSnapshot = false
 		jxmppVersion = '0.4.2'
 		smackMinAndroidSdk = 8
