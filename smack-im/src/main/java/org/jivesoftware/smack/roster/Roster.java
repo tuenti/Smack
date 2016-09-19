@@ -460,7 +460,7 @@ public class Roster extends Manager {
      * @throws NotLoggedInException If not logged in.
      * @throws NotConnectedException 
      */
-    public void createEntry(String user, String name, String[] groups) throws NotLoggedInException, NoResponseException, XMPPErrorException, NotConnectedException {
+    public void createEntry(String user, String name, String[] groups) throws NotLoggedInException, NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         final XMPPConnection connection = connection();
         if (!connection.isAuthenticated()) {
             throw new NotLoggedInException();
@@ -502,7 +502,7 @@ public class Roster extends Manager {
      * @throws NotConnectedException 
      * @throws IllegalStateException if connection is not logged in or logged in anonymously
      */
-    public void removeEntry(RosterEntry entry) throws NotLoggedInException, NoResponseException, XMPPErrorException, NotConnectedException {
+    public void removeEntry(RosterEntry entry) throws NotLoggedInException, NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         final XMPPConnection connection = connection();
         if (!connection.isAuthenticated()) {
             throw new NotLoggedInException();

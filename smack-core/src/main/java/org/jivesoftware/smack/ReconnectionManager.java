@@ -250,7 +250,7 @@ public class ReconnectionManager {
                         // Successfully reconnected.
                         attempts = 0;
                     }
-                    catch (SmackException | IOException | XMPPException e) {
+                    catch (SmackException | IOException | XMPPException | InterruptedException e) {
                         // Fires the failed reconnection notification
                         for (ConnectionListener listener : connection.connectionListeners) {
                             listener.reconnectionFailed(e);

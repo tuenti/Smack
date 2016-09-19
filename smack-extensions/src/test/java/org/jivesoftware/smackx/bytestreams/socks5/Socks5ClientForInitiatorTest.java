@@ -17,11 +17,6 @@
 package org.jivesoftware.smackx.bytestreams.socks5;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -42,6 +37,11 @@ import org.jivesoftware.util.Verification;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Test for Socks5ClientForInitiator class.
@@ -71,7 +71,7 @@ public class Socks5ClientForInitiatorTest {
      * @throws SmackException 
      */
     @Before
-    public void setup() throws XMPPException, SmackException {
+    public void setup() throws XMPPException, SmackException, InterruptedException {
 
         // build protocol verifier
         protocol = new Protocol();

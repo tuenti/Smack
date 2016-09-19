@@ -84,7 +84,7 @@ public class FaultTolerantNegotiator extends StreamNegotiator {
     }
 
     public OutputStream createOutgoingStream(String streamID, String initiator, String target)
-                    throws SmackException, XMPPException {
+            throws SmackException, XMPPException, InterruptedException {
         OutputStream stream;
         try {
             stream = primaryNegotiator.createOutgoingStream(streamID, initiator, target);

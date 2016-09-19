@@ -156,7 +156,7 @@ public class PingManager extends Manager {
      * @throws NoResponseException if there was no response from the jid.
      * @throws NotConnectedException 
      */
-    public boolean ping(String jid, long pingTimeout) throws NotConnectedException, NoResponseException {
+    public boolean ping(String jid, long pingTimeout) throws NotConnectedException, NoResponseException, InterruptedException {
         final XMPPConnection connection = connection();
         // Packet collector for IQs needs an connection that was at least authenticated once,
         // otherwise the client JID will be null causing an NPE
@@ -182,7 +182,7 @@ public class PingManager extends Manager {
      * @throws NotConnectedException
      * @throws NoResponseException if there was no response from the jid.
      */
-    public boolean ping(String jid) throws NotConnectedException, NoResponseException {
+    public boolean ping(String jid) throws NotConnectedException, NoResponseException, InterruptedException {
         return ping(jid, connection().getPacketReplyTimeout());
     }
 
@@ -195,7 +195,7 @@ public class PingManager extends Manager {
      * @throws NoResponseException if there was no response from the jid.
      * @throws NotConnectedException 
      */
-    public boolean isPingSupported(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public boolean isPingSupported(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return ServiceDiscoveryManager.getInstanceFor(connection()).supportsFeature(jid, Ping.NAMESPACE);
     }
 
@@ -209,7 +209,7 @@ public class PingManager extends Manager {
      * @return true if a reply was received from the server, false otherwise.
      * @throws NotConnectedException
      */
-    public boolean pingMyServer() throws NotConnectedException {
+    public boolean pingMyServer() throws NotConnectedException, InterruptedException {
         return pingMyServer(true);
     }
 
@@ -224,7 +224,7 @@ public class PingManager extends Manager {
      * @return true if the user's server could be pinged.
      * @throws NotConnectedException
      */
-    public boolean pingMyServer(boolean notifyListeners) throws NotConnectedException {
+    public boolean pingMyServer(boolean notifyListeners) throws NotConnectedException, InterruptedException {
         return pingMyServer(notifyListeners, connection().getPacketReplyTimeout());
     }
 
@@ -240,7 +240,7 @@ public class PingManager extends Manager {
      * @return true if the user's server could be pinged.
      * @throws NotConnectedException
      */
-    public boolean pingMyServer(boolean notifyListeners, long pingTimeout) throws NotConnectedException {
+    public boolean pingMyServer(boolean notifyListeners, long pingTimeout) throws NotConnectedException, InterruptedException {
         boolean res;
         try {
             res = ping(connection().getServiceName(), pingTimeout);
@@ -369,7 +369,7 @@ public class PingManager extends Manager {
                 try {
                     res = pingMyServer(false);
                 }
-                catch (SmackException e) {
+                catch (InterruptedException | SmackException e) {
                     LOGGER.log(Level.WARNING, "SmackError while pinging server", e);
                     res = false;
                 }

@@ -108,7 +108,7 @@ public class JingleSessionRequest {
      *         negotiation can be carried out.
      * @throws SmackException 
      */
-    public synchronized JingleSession accept() throws XMPPException, SmackException {
+    public synchronized JingleSession accept() throws XMPPException, SmackException, InterruptedException {
         JingleSession session = null;
         synchronized (manager) {
             session = manager.createIncomingJingleSession(this);

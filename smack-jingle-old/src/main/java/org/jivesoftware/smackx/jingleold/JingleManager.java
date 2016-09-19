@@ -313,7 +313,7 @@ public class JingleManager implements JingleSessionListener {
      * @throws SmackException if there was no response from the server.
      * @throws XMPPException 
      */
-    public static boolean isServiceEnabled(XMPPConnection connection, String userID) throws XMPPException, SmackException {
+    public static boolean isServiceEnabled(XMPPConnection connection, String userID) throws XMPPException, SmackException, InterruptedException {
             return ServiceDiscoveryManager.getInstanceFor(connection).supportsFeature(userID, Jingle.NAMESPACE);
     }
 

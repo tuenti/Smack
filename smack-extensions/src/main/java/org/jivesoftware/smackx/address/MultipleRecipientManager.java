@@ -17,9 +17,13 @@
 
 package org.jivesoftware.smackx.address;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.jivesoftware.smack.SmackException;
-import org.jivesoftware.smack.SmackException.NoResponseException;
 import org.jivesoftware.smack.SmackException.FeatureNotSupportedException;
+import org.jivesoftware.smack.SmackException.NoResponseException;
 import org.jivesoftware.smack.SmackException.NotConnectedException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException.XMPPErrorException;
@@ -29,10 +33,6 @@ import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.address.packet.MultipleAddresses;
 import org.jivesoftware.smackx.disco.ServiceDiscoveryManager;
 import org.jxmpp.util.XmppStringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * A MultipleRecipientManager allows to send packets to multiple recipients by making use of
@@ -65,8 +65,7 @@ public class MultipleRecipientManager {
      * @throws NoResponseException if there was no response from the server.
      * @throws NotConnectedException 
      */
-    public static void send(XMPPConnection connection, Stanza packet, Collection<String> to, Collection<String> cc, Collection<String> bcc) throws NoResponseException, XMPPErrorException, FeatureNotSupportedException, NotConnectedException
-   {
+    public static void send(XMPPConnection connection, Stanza packet, Collection<String> to, Collection<String> cc, Collection<String> bcc) throws NoResponseException, XMPPErrorException, FeatureNotSupportedException, NotConnectedException, InterruptedException {
         send(connection, packet, to, cc, bcc, null, null, false);
     }
 
@@ -95,7 +94,7 @@ public class MultipleRecipientManager {
      * @throws NotConnectedException 
      */
     public static void send(XMPPConnection connection, Stanza packet, Collection<String> to, Collection<String> cc, Collection<String> bcc,
-            String replyTo, String replyRoom, boolean noReply) throws NoResponseException, XMPPErrorException, FeatureNotSupportedException, NotConnectedException {
+            String replyTo, String replyRoom, boolean noReply) throws NoResponseException, XMPPErrorException, FeatureNotSupportedException, NotConnectedException, InterruptedException {
         // Check if *only* 'to' is set and contains just *one* entry, in this case extended stanzas addressing is not
         // required at all and we can send it just as normal stanza without needing to add the extension element
         if (to != null && to.size() == 1 && (cc == null || cc.isEmpty()) && (bcc == null || bcc.isEmpty()) && !noReply
@@ -135,8 +134,7 @@ public class MultipleRecipientManager {
      * @throws SmackException 
      * @throws XMPPErrorException 
      */
-    public static void reply(XMPPConnection connection, Message original, Message reply) throws SmackException, XMPPErrorException
-         {
+    public static void reply(XMPPConnection connection, Message original, Message reply) throws SmackException, XMPPErrorException, InterruptedException {
         MultipleRecipientInfo info = getMultipleRecipientInfo(original);
         if (info == null) {
             throw new SmackException("Original message does not contain multiple recipient info");
@@ -274,7 +272,7 @@ public class MultipleRecipientManager {
      * @throws XMPPErrorException 
      * @throws NotConnectedException 
      */
-    private static String getMultipleRecipienServiceAddress(XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    private static String getMultipleRecipienServiceAddress(XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         ServiceDiscoveryManager sdm = ServiceDiscoveryManager.getInstanceFor(connection);
         List<String> services = sdm.findServices(MultipleAddresses.NAMESPACE, true, true);
         if (services.size() > 0) {

@@ -58,7 +58,7 @@ public class IBBTransferNegotiator extends StreamNegotiator {
     }
 
     public OutputStream createOutgoingStream(String streamID, String initiator,
-                    String target) throws NoResponseException, XMPPErrorException, NotConnectedException {
+                    String target) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         InBandBytestreamSession session = this.manager.establishSession(target, streamID);
         session.setCloseBothStreamsEnabled(true);
         return session.getOutputStream();

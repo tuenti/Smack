@@ -74,7 +74,7 @@ public class VCardManager extends Manager {
      * @deprecated use {@link #isSupported(String)} instead.
      */
     @Deprecated
-    public static boolean isSupported(String jid, XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public static boolean isSupported(String jid, XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return VCardManager.getInstanceFor(connection).isSupported(jid);
     }
 
@@ -91,7 +91,7 @@ public class VCardManager extends Manager {
      * @throws NoResponseException if there was no response from the server.
      * @throws NotConnectedException 
      */
-    public void saveVCard(VCard vcard) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void saveVCard(VCard vcard) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         // XEP-54 § 3.2 "A user may publish or update his or her vCard by sending an IQ of type "set" with no 'to' address…"
         vcard.setTo(null);
         vcard.setType(IQ.Type.set);
@@ -108,7 +108,7 @@ public class VCardManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public VCard loadVCard() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public VCard loadVCard() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return loadVCard(null);
     }
 
@@ -119,7 +119,7 @@ public class VCardManager extends Manager {
      * @throws NoResponseException if there was no response from the server.
      * @throws NotConnectedException 
      */
-    public VCard loadVCard(String bareJid) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public VCard loadVCard(String bareJid) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         VCard vcardRequest = new VCard();
         vcardRequest.setTo(bareJid);
         VCard result = connection().createPacketCollectorAndSend(vcardRequest).nextResultOrThrow();
@@ -135,7 +135,7 @@ public class VCardManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public boolean isSupported(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public boolean isSupported(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return ServiceDiscoveryManager.getInstanceFor(connection()).supportsFeature(jid, NAMESPACE);
     }
 }

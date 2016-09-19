@@ -16,14 +16,6 @@
  */
 package org.jivesoftware.smackx.bytestreams.socks5;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -41,8 +33,8 @@ import org.jivesoftware.smackx.bytestreams.socks5.packet.Bytestream;
 import org.jivesoftware.smackx.bytestreams.socks5.packet.Bytestream.StreamHost;
 import org.jivesoftware.smackx.disco.ServiceDiscoveryManager;
 import org.jivesoftware.smackx.disco.packet.DiscoverInfo;
-import org.jivesoftware.smackx.disco.packet.DiscoverItems;
 import org.jivesoftware.smackx.disco.packet.DiscoverInfo.Identity;
+import org.jivesoftware.smackx.disco.packet.DiscoverItems;
 import org.jivesoftware.smackx.disco.packet.DiscoverItems.Item;
 import org.jivesoftware.util.ConnectionUtils;
 import org.jivesoftware.util.Protocol;
@@ -50,6 +42,14 @@ import org.jivesoftware.util.Verification;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 /**
  * Test for Socks5BytestreamManager.
@@ -78,7 +78,7 @@ public class Socks5ByteStreamManagerTest {
      * @throws SmackException 
      */
     @Before
-    public void setup() throws XMPPException, SmackException {
+    public void setup() throws XMPPException, SmackException, InterruptedException {
 
         // build protocol verifier
         protocol = new Protocol();

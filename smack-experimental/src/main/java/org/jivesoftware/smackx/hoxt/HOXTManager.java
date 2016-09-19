@@ -57,7 +57,7 @@ public class HOXTManager {
      * @throws NoResponseException
      * @throws NotConnectedException
      */
-    public static boolean isSupported(String jid, XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public static boolean isSupported(String jid, XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return ServiceDiscoveryManager.getInstanceFor(connection).supportsFeature(jid, NAMESPACE);
     }
 }

@@ -94,7 +94,7 @@ public final class RosterEntry extends Manager {
      * @throws XMPPErrorException 
      * @throws NoResponseException 
      */
-    public synchronized void setName(String name) throws NotConnectedException, NoResponseException, XMPPErrorException {
+    public synchronized void setName(String name) throws NotConnectedException, NoResponseException, XMPPErrorException, InterruptedException {
         // Do nothing if the name hasn't changed.
         if (name != null && name.equals(this.name)) {
             return;

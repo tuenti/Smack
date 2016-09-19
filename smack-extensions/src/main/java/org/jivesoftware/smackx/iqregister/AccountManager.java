@@ -132,7 +132,7 @@ public class AccountManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public boolean supportsAccountCreation() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public boolean supportsAccountCreation() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         // Check if we already know that the server supports creating new accounts
         if (accountCreationSupported) {
             return true;
@@ -174,7 +174,7 @@ public class AccountManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public Set<String> getAccountAttributes() throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public Set<String> getAccountAttributes() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         if (info == null) {
             getRegistrationInfo();
         }
@@ -197,7 +197,7 @@ public class AccountManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public String getAccountAttribute(String name) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public String getAccountAttribute(String name) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         if (info == null) {
             getRegistrationInfo();
         }
@@ -214,7 +214,7 @@ public class AccountManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public String getAccountInstructions() throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public String getAccountInstructions() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         if (info == null) {
             getRegistrationInfo();
         }
@@ -235,7 +235,7 @@ public class AccountManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public void createAccount(String username, String password) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public void createAccount(String username, String password) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         // Create a map for all the required attributes, but give them blank values.
         Map<String, String> attributes = new HashMap<String, String>();
         for (String attributeName : getAccountAttributes()) {
@@ -258,7 +258,7 @@ public class AccountManager extends Manager {
      * @see #getAccountAttributes()
      */
     public void createAccount(String username, String password, Map<String, String> attributes)
-                    throws NoResponseException, XMPPErrorException, NotConnectedException {
+            throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         if (!connection().isSecureConnection() && !allowSensitiveOperationOverInsecureConnection) {
             // TODO throw exception in newer Smack versions
             LOGGER.warning("Creating account over insecure connection. "
@@ -282,7 +282,7 @@ public class AccountManager extends Manager {
      * @throws NoResponseException if there was no response from the server.
      * @throws NotConnectedException 
      */
-    public void changePassword(String newPassword) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void changePassword(String newPassword) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         if (!connection().isSecureConnection() && !allowSensitiveOperationOverInsecureConnection) {
             // TODO throw exception in newer Smack versions
             LOGGER.warning("Changing password over insecure connection. "
@@ -307,7 +307,7 @@ public class AccountManager extends Manager {
      * @throws NoResponseException if there was no response from the server.
      * @throws NotConnectedException 
      */
-    public void deleteAccount() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void deleteAccount() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         Map<String, String> attributes = new HashMap<String, String>();
         // To delete an account, we add a single attribute, "remove", that is blank.
         attributes.put("remove", "");
@@ -326,7 +326,7 @@ public class AccountManager extends Manager {
      * @throws XMPPException if an error occurs.
      * @throws SmackException if there was no response from the server.
      */
-    private synchronized void getRegistrationInfo() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    private synchronized void getRegistrationInfo() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         Registration reg = new Registration();
         reg.setTo(connection().getServiceName());
         info = createPacketCollectorAndSend(reg).nextResultOrThrow();

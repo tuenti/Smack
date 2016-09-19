@@ -16,12 +16,6 @@
  */
 package org.jivesoftware.smackx.bytestreams.socks5;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
@@ -40,6 +34,12 @@ import org.jivesoftware.util.Protocol;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Tests for the Socks5BytestreamRequest class.
@@ -66,7 +66,7 @@ public class Socks5ByteStreamRequestTest {
      * @throws SmackException 
      */
     @Before
-    public void setup() throws XMPPException, SmackException {
+    public void setup() throws XMPPException, SmackException, InterruptedException {
 
         // build protocol verifier
         protocol = new Protocol();

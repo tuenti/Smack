@@ -16,13 +16,6 @@
  */
 package org.jivesoftware.util;
 
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import org.jivesoftware.smack.PacketCollector;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPConnection;
@@ -34,6 +27,13 @@ import org.jivesoftware.smack.packet.XMPPError;
 import org.jivesoftware.smackx.disco.ServiceDiscoveryManager;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * A collection of utility methods to create mocked XMPP connections.
@@ -66,7 +66,7 @@ public class ConnectionUtils {
      * @throws XMPPErrorException 
      */
     public static XMPPConnection createMockedConnection(final Protocol protocol,
-                    String initiatorJID, String xmppServer) throws SmackException, XMPPErrorException {
+                    String initiatorJID, String xmppServer) throws SmackException, XMPPErrorException, InterruptedException {
 
         // mock XMPP connection
         XMPPConnection connection = mock(XMPPConnection.class);

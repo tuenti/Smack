@@ -442,7 +442,7 @@ public class EntityCapsManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public boolean areEntityCapsSupported(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public boolean areEntityCapsSupported(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return sdm.supportsFeature(jid, NAMESPACE);
     }
 
@@ -454,7 +454,7 @@ public class EntityCapsManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public boolean areEntityCapsSupportedByServer() throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public boolean areEntityCapsSupportedByServer() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return areEntityCapsSupported(connection().getServiceName());
     }
 

@@ -17,15 +17,15 @@
 
 package org.jivesoftware.smackx.workgroup.agent;
 
-import org.jivesoftware.smackx.workgroup.packet.AgentInfo;
-import org.jivesoftware.smackx.workgroup.packet.AgentWorkgroups;
+import java.util.Collection;
+
 import org.jivesoftware.smack.SmackException.NoResponseException;
 import org.jivesoftware.smack.SmackException.NotConnectedException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException.XMPPErrorException;
 import org.jivesoftware.smack.packet.IQ;
-
-import java.util.Collection;
+import org.jivesoftware.smackx.workgroup.packet.AgentInfo;
+import org.jivesoftware.smackx.workgroup.packet.AgentWorkgroups;
 
 /**
  * The <code>Agent</code> class is used to represent one agent in a Workgroup Queue.
@@ -36,7 +36,7 @@ public class Agent {
     private XMPPConnection connection;
     private String workgroupJID;
 
-    public static Collection<String> getWorkgroups(String serviceJID, String agentJID, XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public static Collection<String> getWorkgroups(String serviceJID, String agentJID, XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         AgentWorkgroups request = new AgentWorkgroups(agentJID);
         request.setTo(serviceJID);
         AgentWorkgroups response = (AgentWorkgroups) connection.createPacketCollectorAndSend(request).nextResultOrThrow();
@@ -68,7 +68,7 @@ public class Agent {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public String getName() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public String getName() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         AgentInfo agentInfo = new AgentInfo();
         agentInfo.setType(IQ.Type.get);
         agentInfo.setTo(workgroupJID);
@@ -88,7 +88,7 @@ public class Agent {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public void setName(String newName) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void setName(String newName) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         AgentInfo agentInfo = new AgentInfo();
         agentInfo.setType(IQ.Type.set);
         agentInfo.setTo(workgroupJID);

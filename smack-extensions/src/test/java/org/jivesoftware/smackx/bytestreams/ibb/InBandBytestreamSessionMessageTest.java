@@ -16,17 +16,13 @@
  */
 package org.jivesoftware.smackx.bytestreams.ibb;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Random;
 
-import org.jivesoftware.smack.StanzaListener;
 import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.StanzaListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.IQ;
@@ -41,6 +37,10 @@ import org.jivesoftware.util.Verification;
 import org.junit.Before;
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Test for InBandBytestreamSession.
@@ -77,7 +77,7 @@ public class InBandBytestreamSessionMessageTest {
      * @throws SmackException 
      */
     @Before
-    public void setup() throws XMPPException, SmackException {
+    public void setup() throws XMPPException, SmackException, InterruptedException {
 
         // build protocol verifier
         protocol = new Protocol();

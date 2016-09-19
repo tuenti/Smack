@@ -302,7 +302,7 @@ public class FileTransferNegotiator extends Manager {
      */
     public StreamNegotiator negotiateOutgoingTransfer(final String userID,
             final String streamID, final String fileName, final long size,
-            final String desc, int responseTimeout) throws XMPPErrorException, NotConnectedException, NoResponseException, NoAcceptableTransferMechanisms {
+            final String desc, int responseTimeout) throws XMPPErrorException, NotConnectedException, NoResponseException, NoAcceptableTransferMechanisms, InterruptedException {
         StreamInitiation si = new StreamInitiation();
         si.setSessionID(streamID);
         si.setMimeType(URLConnection.guessContentTypeFromName(fileName));

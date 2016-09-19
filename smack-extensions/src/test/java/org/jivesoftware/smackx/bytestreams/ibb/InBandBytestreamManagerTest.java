@@ -16,12 +16,6 @@
  */
 package org.jivesoftware.smackx.bytestreams.ibb;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -35,6 +29,12 @@ import org.jivesoftware.util.Protocol;
 import org.jivesoftware.util.Verification;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 /**
  * Test for InBandBytestreamManager.
@@ -61,7 +61,7 @@ public class InBandBytestreamManagerTest {
      * @throws SmackException 
      */
     @Before
-    public void setup() throws XMPPException, SmackException {
+    public void setup() throws XMPPException, SmackException, InterruptedException {
 
         // build protocol verifier
         protocol = new Protocol();
@@ -105,7 +105,7 @@ public class InBandBytestreamManagerTest {
      * @throws XMPPException 
      */
     @Test
-    public void shouldFailIfTargetDoesNotSupportIBB() throws SmackException, XMPPException {
+    public void shouldFailIfTargetDoesNotSupportIBB() throws SmackException, XMPPException, InterruptedException {
         InBandBytestreamManager byteStreamManager = InBandBytestreamManager.getByteStreamManager(connection);
 
         try {
@@ -153,7 +153,7 @@ public class InBandBytestreamManagerTest {
     }
 
     @Test
-    public void shouldUseConfiguredStanzaType() throws SmackException {
+    public void shouldUseConfiguredStanzaType() throws SmackException, InterruptedException {
         InBandBytestreamManager byteStreamManager = InBandBytestreamManager.getByteStreamManager(connection);
         byteStreamManager.setStanza(StanzaType.MESSAGE);
 

@@ -75,7 +75,7 @@ public class RosterGroup extends Manager {
      * @throws XMPPErrorException 
      * @throws NoResponseException 
      */
-    public void setName(String name) throws NotConnectedException, NoResponseException, XMPPErrorException {
+    public void setName(String name) throws NotConnectedException, NoResponseException, XMPPErrorException, InterruptedException {
         synchronized (entries) {
             for (RosterEntry entry : entries) {
                 RosterPacket packet = new RosterPacket();
@@ -169,7 +169,7 @@ public class RosterGroup extends Manager {
      * @throws NoResponseException if there was no response from the server.
      * @throws NotConnectedException 
      */
-    public void addEntry(RosterEntry entry) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void addEntry(RosterEntry entry) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         // Only add the entry if it isn't already in the list.
         synchronized (entries) {
             if (!entries.contains(entry)) {
@@ -196,7 +196,7 @@ public class RosterGroup extends Manager {
      * @throws NoResponseException if there was no response from the server.
      * @throws NotConnectedException 
      */
-    public void removeEntry(RosterEntry entry) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void removeEntry(RosterEntry entry) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         // Only remove the entry if it's in the entry list.
         // Remove the entry locally, if we wait for RosterPacketListenerprocess>>Packet(Packet)
         // to take place the entry will exist in the group until a packet is received from the 

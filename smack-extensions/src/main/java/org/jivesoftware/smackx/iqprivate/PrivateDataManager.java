@@ -17,6 +17,11 @@
 
 package org.jivesoftware.smackx.iqprivate;
 
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import org.jivesoftware.smack.Manager;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.SmackException.NoResponseException;
@@ -31,11 +36,6 @@ import org.jivesoftware.smackx.iqprivate.packet.PrivateDataIQ;
 import org.jivesoftware.smackx.iqprivate.provider.PrivateDataProvider;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 /**
  * Manages private data, which is a mechanism to allow users to store arbitrary XML
@@ -154,8 +154,7 @@ public class PrivateDataManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public PrivateData getPrivateData(final String elementName, final String namespace) throws NoResponseException, XMPPErrorException, NotConnectedException
-    {
+    public PrivateData getPrivateData(final String elementName, final String namespace) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         // Create an IQ packet to get the private data.
         IQ privateDataGet = new PrivateDataIQ(elementName, namespace);
 
@@ -174,7 +173,7 @@ public class PrivateDataManager extends Manager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public void setPrivateData(final PrivateData privateData) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void setPrivateData(final PrivateData privateData) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         // Create an IQ packet to set the private data.
         IQ privateDataSet = new PrivateDataIQ(privateData);
 

@@ -63,7 +63,7 @@ public class JingleSessionStateUnknown extends JingleSessionState {
 
     }
 
-    public IQ processJingle(JingleSession session, Jingle jingle, JingleActionEnum action) throws SmackException {
+    public IQ processJingle(JingleSession session, Jingle jingle, JingleActionEnum action) throws SmackException, InterruptedException {
         IQ response = null;
 
         switch (action) {
@@ -90,7 +90,7 @@ public class JingleSessionStateUnknown extends JingleSessionState {
      * @throws SmackException 
      */
 
-    private IQ receiveSessionInitiateAction(JingleSession session, Jingle inJingle) throws SmackException {
+    private IQ receiveSessionInitiateAction(JingleSession session, Jingle inJingle) throws SmackException, InterruptedException {
 
         IQ response = null;
         boolean shouldAck = true;

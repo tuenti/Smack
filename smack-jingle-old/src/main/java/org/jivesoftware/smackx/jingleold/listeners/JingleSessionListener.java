@@ -39,7 +39,7 @@ public interface JingleSessionListener extends JingleListener {
      * @throws NotConnectedException 
      */
     public void sessionEstablished(PayloadType pt, TransportCandidate remoteCandidate,
-                                   TransportCandidate localCandidate, JingleSession jingleSession) throws NotConnectedException;
+                                   TransportCandidate localCandidate, JingleSession jingleSession) throws NotConnectedException, InterruptedException;
 
     /**
      * Notification that the session was declined.

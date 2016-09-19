@@ -176,7 +176,7 @@ public class Workgroup {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public boolean isAvailable() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public boolean isAvailable() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         Presence directedPresence = new Presence(Presence.Type.available);
         directedPresence.setTo(workgroupJID);
         StanzaFilter typeFilter = new StanzaTypeFilter(Presence.class);
@@ -251,7 +251,7 @@ public class Workgroup {
      *                       request to join the queue.
      * @throws SmackException 
      */
-    public void joinQueue() throws XMPPException, SmackException {
+    public void joinQueue() throws XMPPException, SmackException, InterruptedException {
         joinQueue(null);
     }
 
@@ -289,7 +289,7 @@ public class Workgroup {
      *                       request to join the queue.
      * @throws SmackException 
      */
-    public void joinQueue(Form answerForm) throws XMPPException, SmackException {
+    public void joinQueue(Form answerForm) throws XMPPException, SmackException, InterruptedException {
         joinQueue(answerForm, null);
     }
 
@@ -328,7 +328,7 @@ public class Workgroup {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public void joinQueue(Form answerForm, String userID) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void joinQueue(Form answerForm, String userID) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         // If already in the queue ignore the join request.
         if (inQueue) {
             throw new IllegalStateException("Already in queue " + workgroupJID);
@@ -375,7 +375,7 @@ public class Workgroup {
      *                       request to join the queue.
      * @throws SmackException 
      */
-    public void joinQueue(Map<String,Object> metadata, String userID) throws XMPPException, SmackException {
+    public void joinQueue(Map<String,Object> metadata, String userID) throws XMPPException, SmackException, InterruptedException {
         // If already in the queue ignore the join request.
         if (inQueue) {
             throw new IllegalStateException("Already in queue " + workgroupJID);
@@ -409,7 +409,7 @@ public class Workgroup {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public void departQueue() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void departQueue() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         // If not in the queue ignore the depart request.
         if (!inQueue) {
             return;
@@ -585,7 +585,7 @@ public class Workgroup {
      * @throws XMPPException if an error occurs while getting information from the server.
      * @throws SmackException 
      */
-    public ChatSetting getChatSetting(String key) throws XMPPException, SmackException {
+    public ChatSetting getChatSetting(String key) throws XMPPException, SmackException, InterruptedException {
         ChatSettings chatSettings = getChatSettings(key, -1);
         return chatSettings.getFirstEntry();
     }
@@ -598,7 +598,7 @@ public class Workgroup {
      * @throws XMPPException if an error occurs while getting information from the server.
      * @throws SmackException 
      */
-    public ChatSettings getChatSettings(int type) throws XMPPException, SmackException {
+    public ChatSettings getChatSettings(int type) throws XMPPException, SmackException, InterruptedException {
         return getChatSettings(null, type);
     }
 
@@ -609,7 +609,7 @@ public class Workgroup {
      * @throws XMPPException if an error occurs while getting information from the server.
      * @throws SmackException 
      */
-    public ChatSettings getChatSettings() throws XMPPException, SmackException {
+    public ChatSettings getChatSettings() throws XMPPException, SmackException, InterruptedException {
         return getChatSettings(null, -1);
     }
 
@@ -622,7 +622,7 @@ public class Workgroup {
      * @throws XMPPErrorException if an error occurs while getting information from the server.
      * @throws NotConnectedException 
      */
-    private ChatSettings getChatSettings(String key, int type) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    private ChatSettings getChatSettings(String key, int type) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         ChatSettings request = new ChatSettings();
         if (key != null) {
             request.setKey(key);
@@ -645,7 +645,7 @@ public class Workgroup {
      * @return true if the email service is available, otherwise return false.
      * @throws SmackException 
      */
-    public boolean isEmailAvailable() throws SmackException {
+    public boolean isEmailAvailable() throws SmackException, InterruptedException {
         ServiceDiscoveryManager discoManager = ServiceDiscoveryManager.getInstanceFor(connection);
 
         try {
@@ -666,7 +666,7 @@ public class Workgroup {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public OfflineSettings getOfflineSettings() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public OfflineSettings getOfflineSettings() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         OfflineSettings request = new OfflineSettings();
         request.setType(IQ.Type.get);
         request.setTo(workgroupJID);
@@ -684,7 +684,7 @@ public class Workgroup {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public SoundSettings getSoundSettings() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public SoundSettings getSoundSettings() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         SoundSettings request = new SoundSettings();
         request.setType(IQ.Type.get);
         request.setTo(workgroupJID);
@@ -701,7 +701,7 @@ public class Workgroup {
      * @throws NoResponseException
      * @throws NotConnectedException 
      */
-    public WorkgroupProperties getWorkgroupProperties() throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public WorkgroupProperties getWorkgroupProperties() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         WorkgroupProperties request = new WorkgroupProperties();
         request.setType(IQ.Type.get);
         request.setTo(workgroupJID);
@@ -720,7 +720,7 @@ public class Workgroup {
      * @throws NoResponseException
      * @throws NotConnectedException 
      */
-    public WorkgroupProperties getWorkgroupProperties(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public WorkgroupProperties getWorkgroupProperties(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         WorkgroupProperties request = new WorkgroupProperties();
         request.setJid(jid);
         request.setType(IQ.Type.get);
@@ -742,7 +742,7 @@ public class Workgroup {
      * @throws NoResponseException
      * @throws NotConnectedException 
      */
-    public Form getWorkgroupForm() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public Form getWorkgroupForm() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         WorkgroupForm workgroupForm = new WorkgroupForm();
         workgroupForm.setType(IQ.Type.get);
         workgroupForm.setTo(workgroupJID);

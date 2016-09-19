@@ -175,7 +175,7 @@ public class MultiUserChatManager extends Manager {
      * @throws NoResponseException
      * @throws NotConnectedException
      */
-    public boolean isServiceEnabled(String user) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public boolean isServiceEnabled(String user) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return ServiceDiscoveryManager.getInstanceFor(connection()).supportsFeature(user, MUCInitialPresence.NAMESPACE);
     }
 
@@ -200,7 +200,7 @@ public class MultiUserChatManager extends Manager {
      * @throws NotConnectedException
      */
     public List<String> getJoinedRooms(String user) throws NoResponseException, XMPPErrorException,
-                    NotConnectedException {
+            NotConnectedException, InterruptedException {
         // Send the disco packet to the user
         DiscoverItems result = ServiceDiscoveryManager.getInstanceFor(connection()).discoverItems(user, DISCO_NODE);
         List<DiscoverItems.Item> items = result.getItems();
@@ -222,7 +222,7 @@ public class MultiUserChatManager extends Manager {
      * @throws NoResponseException
      * @throws NotConnectedException
      */
-    public RoomInfo getRoomInfo(String room) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public RoomInfo getRoomInfo(String room) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         DiscoverInfo info = ServiceDiscoveryManager.getInstanceFor(connection()).discoverInfo(room);
         return new RoomInfo(info);
     }
@@ -235,7 +235,7 @@ public class MultiUserChatManager extends Manager {
      * @throws NoResponseException
      * @throws NotConnectedException
      */
-    public List<String> getServiceNames() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public List<String> getServiceNames() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         ServiceDiscoveryManager sdm = ServiceDiscoveryManager.getInstanceFor(connection());
         return sdm.findServices(MUCInitialPresence.NAMESPACE, false, false);
     }
@@ -252,7 +252,7 @@ public class MultiUserChatManager extends Manager {
      * @throws NotConnectedException
      */
     public List<HostedRoom> getHostedRooms(String serviceName) throws NoResponseException, XMPPErrorException,
-                    NotConnectedException {
+            NotConnectedException, InterruptedException {
         ServiceDiscoveryManager discoManager = ServiceDiscoveryManager.getInstanceFor(connection());
         DiscoverItems discoverItems = discoManager.discoverItems(serviceName);
         List<DiscoverItems.Item> items = discoverItems.getItems();

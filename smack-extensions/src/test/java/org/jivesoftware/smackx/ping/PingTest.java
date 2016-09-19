@@ -16,11 +16,6 @@
  */
 package org.jivesoftware.smackx.ping;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 
 import org.jivesoftware.smack.DummyConnection;
@@ -37,6 +32,11 @@ import org.jivesoftware.smackx.disco.packet.DiscoverInfo;
 import org.jivesoftware.smackx.ping.packet.Ping;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class PingTest extends InitExtensions {
 
@@ -105,7 +105,7 @@ public class PingTest extends InitExtensions {
      * @throws IOException 
      */
     @Test
-    public void checkFailedPingOnTimeout() throws SmackException, IOException, XMPPException {
+    public void checkFailedPingOnTimeout() throws SmackException, IOException, XMPPException, InterruptedException {
         DummyConnection dummyCon = getAuthenticatedDummyConnectionWithoutIqReplies();
         PingManager pinger = PingManager.getInstanceFor(dummyCon);
 
@@ -181,7 +181,7 @@ public class PingTest extends InitExtensions {
     }
     
     @Test
-    public void checkPingToServerTimeout() throws SmackException, IOException, XMPPException {
+    public void checkPingToServerTimeout() throws SmackException, IOException, XMPPException, InterruptedException {
         DummyConnection con = getAuthenticatedDummyConnectionWithoutIqReplies();
         PingManager pinger = PingManager.getInstanceFor(con);
 
@@ -233,7 +233,7 @@ public class PingTest extends InitExtensions {
         assertFalse(pingSupported);
     }
 
-    private static ThreadedDummyConnection getAuthentiactedDummyConnection() throws SmackException, IOException, XMPPException {
+    private static ThreadedDummyConnection getAuthentiactedDummyConnection() throws SmackException, IOException, XMPPException, InterruptedException {
         ThreadedDummyConnection connection = new ThreadedDummyConnection();
         connection.connect();
         connection.login();
@@ -248,7 +248,7 @@ public class PingTest extends InitExtensions {
      * @throws IOException 
      * @throws SmackException 
      */
-    private static DummyConnection getAuthenticatedDummyConnectionWithoutIqReplies() throws SmackException, IOException, XMPPException {
+    private static DummyConnection getAuthenticatedDummyConnectionWithoutIqReplies() throws SmackException, IOException, XMPPException, InterruptedException {
         DummyConnection con = new DummyConnection();
         con.setPacketReplyTimeout(500);
         con.connect();

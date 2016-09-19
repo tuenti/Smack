@@ -89,12 +89,12 @@ public abstract class TransportResolver {
     /**
      * Initialize the Resolver
      */
-    public abstract void initialize() throws XMPPException, SmackException;
+    public abstract void initialize() throws XMPPException, SmackException, InterruptedException;
 
     /**
      * Start a the resolution.
      */
-    public abstract void resolve(JingleSession session) throws XMPPException, SmackException;
+    public abstract void resolve(JingleSession session) throws XMPPException, SmackException, InterruptedException;
 
     /**
      * Clear the list of candidates and start a new resolution process.
@@ -356,7 +356,7 @@ public abstract class TransportResolver {
      * Initialize Transport Resolver and wait until it is complete unitialized.
      * @throws SmackException 
      */
-    public void initializeAndWait() throws XMPPException, SmackException {
+    public void initializeAndWait() throws XMPPException, SmackException, InterruptedException {
         this.initialize();
         try {
             LOGGER.fine("Initializing transport resolver...");

@@ -120,7 +120,7 @@ public class CarbonManager extends Manager {
      * @throws XMPPErrorException 
      * @throws NoResponseException 
      */
-    public boolean isSupportedByServer() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public boolean isSupportedByServer() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return ServiceDiscoveryManager.getInstanceFor(connection()).serverSupportsFeature(CarbonExtension.NAMESPACE);
     }
 
@@ -157,7 +157,7 @@ public class CarbonManager extends Manager {
      *
      */
     public synchronized void setCarbonsEnabled(final boolean new_state) throws NoResponseException,
-                    XMPPErrorException, NotConnectedException {
+            XMPPErrorException, NotConnectedException, InterruptedException {
         if (enabled_state == new_state)
             return;
 
@@ -173,7 +173,7 @@ public class CarbonManager extends Manager {
      * @throws XMPPException 
      * @throws SmackException if there was no response from the server.
      */
-    public void enableCarbons() throws XMPPException, SmackException {
+    public void enableCarbons() throws XMPPException, SmackException, InterruptedException {
         setCarbonsEnabled(true);
     }
 
@@ -183,7 +183,7 @@ public class CarbonManager extends Manager {
      * @throws XMPPException 
      * @throws SmackException if there was no response from the server.
      */
-    public void disableCarbons() throws XMPPException, SmackException {
+    public void disableCarbons() throws XMPPException, SmackException, InterruptedException {
         setCarbonsEnabled(false);
     }
 

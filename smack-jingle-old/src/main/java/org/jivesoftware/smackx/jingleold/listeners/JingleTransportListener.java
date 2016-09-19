@@ -37,7 +37,7 @@ public interface JingleTransportListener extends JingleListener {
      * @throws NotConnectedException 
      */
     public void transportEstablished(TransportCandidate local,
-                                     TransportCandidate remote) throws NotConnectedException;
+                                     TransportCandidate remote) throws NotConnectedException, InterruptedException;
 
     /**
      * Notification that a transport must be cancelled.

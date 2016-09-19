@@ -200,7 +200,7 @@ public class DeliveryReceiptManager extends Manager {
      * @throws SmackException if there was no response from the server.
      * @throws XMPPException 
      */
-    public boolean isSupported(String jid) throws SmackException, XMPPException {
+    public boolean isSupported(String jid) throws SmackException, XMPPException, InterruptedException {
         return ServiceDiscoveryManager.getInstanceFor(connection()).supportsFeature(jid,
                         DeliveryReceipt.NAMESPACE);
     }

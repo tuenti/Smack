@@ -162,7 +162,7 @@ public abstract class StreamNegotiator {
      * @throws XMPPException 
      */
     public abstract OutputStream createOutgoingStream(String streamID,
-            String initiator, String target) throws XMPPErrorException, NoResponseException, SmackException, XMPPException;
+            String initiator, String target) throws XMPPErrorException, NoResponseException, SmackException, XMPPException, InterruptedException;
 
     /**
      * Returns the XMPP namespace reserved for this particular type of file

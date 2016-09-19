@@ -175,7 +175,7 @@ public class AdHocCommandManager extends Manager {
                 try {
                     return processAdHocCommand(requestData);
                 }
-                catch (NoResponseException | NotConnectedException e) {
+                catch (InterruptedException | NoResponseException | NotConnectedException e) {
                     LOGGER.log(Level.INFO, "processAdHocCommand threw exceptino", e);
                     return null;
                 }
@@ -253,7 +253,7 @@ public class AdHocCommandManager extends Manager {
      * @throws XMPPException if the operation failed for some reason.
      * @throws SmackException if there was no response from the server.
      */
-    public DiscoverItems discoverCommands(String jid) throws XMPPException, SmackException {
+    public DiscoverItems discoverCommands(String jid) throws XMPPException, SmackException, InterruptedException {
         return serviceDiscoveryManager.discoverItems(jid, NAMESPACE);
     }
 
@@ -264,7 +264,7 @@ public class AdHocCommandManager extends Manager {
      * @throws XMPPException if the operation failed for some reason.
      * @throws SmackException if there was no response from the server.
      */
-    public void publishCommands(String jid) throws XMPPException, SmackException {
+    public void publishCommands(String jid) throws XMPPException, SmackException, InterruptedException {
         // Collects the commands to publish as items
         DiscoverItems discoverItems = new DiscoverItems();
         Collection<AdHocCommandInfo> xCommandsList = getRegisteredCommands();
@@ -319,7 +319,7 @@ public class AdHocCommandManager extends Manager {
      * @throws NotConnectedException
      * @throws NoResponseException
      */
-    private IQ processAdHocCommand(AdHocCommandData requestData) throws NoResponseException, NotConnectedException {
+    private IQ processAdHocCommand(AdHocCommandData requestData) throws NoResponseException, NotConnectedException, InterruptedException {
         // Creates the response with the corresponding data
         AdHocCommandData response = new AdHocCommandData();
         response.setTo(requestData.getFrom());

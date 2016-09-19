@@ -350,7 +350,7 @@ public abstract class AbstractXMPPConnection implements XMPPConnection {
      * @throws ConnectionException with detailed information about the failed connection.
      * @return a reference to this object, to chain <code>connect()</code> with <code>login()</code>.
      */
-    public synchronized AbstractXMPPConnection connect() throws SmackException, IOException, XMPPException {
+    public synchronized AbstractXMPPConnection connect() throws SmackException, IOException, XMPPException, InterruptedException {
         // Check if not already connected
         throwAlreadyConnectedExceptionIfAppropriate();
 
@@ -374,7 +374,7 @@ public abstract class AbstractXMPPConnection implements XMPPConnection {
      * @throws IOException
      * @throws XMPPException
      */
-    protected abstract void connectInternal() throws SmackException, IOException, XMPPException;
+    protected abstract void connectInternal() throws SmackException, IOException, XMPPException, InterruptedException;
 
     private String usedUsername, usedPassword, usedResource;
 
@@ -400,7 +400,7 @@ public abstract class AbstractXMPPConnection implements XMPPConnection {
      * @throws SmackException if an error occurs somewhere else besides XMPP protocol level.
      * @throws IOException if an I/O error occurs during login.
      */
-    public synchronized void login() throws XMPPException, SmackException, IOException {
+    public synchronized void login() throws XMPPException, SmackException, IOException, InterruptedException {
         if (isAnonymous()) {
             throwNotConnectedExceptionIfAppropriate("Did you call connect() before login()?");
             throwAlreadyLoggedInExceptionIfAppropriate();
@@ -427,7 +427,7 @@ public abstract class AbstractXMPPConnection implements XMPPConnection {
      * @see #login
      */
     public synchronized void login(CharSequence username, String password) throws XMPPException, SmackException,
-                    IOException {
+                    IOException, InterruptedException {
         login(username, password, config.getResource());
     }
 
@@ -444,7 +444,7 @@ public abstract class AbstractXMPPConnection implements XMPPConnection {
      * @see #login
      */
     public synchronized void login(CharSequence username, String password, String resource) throws XMPPException,
-                    SmackException, IOException {
+                    SmackException, IOException, InterruptedException {
         if (!config.allowNullOrEmptyUsername) {
             StringUtils.requireNotNullOrEmpty(username, "Username must not be null or empty");
         }
@@ -457,9 +457,9 @@ public abstract class AbstractXMPPConnection implements XMPPConnection {
     }
 
     protected abstract void loginNonAnonymously(String username, String password, String resource)
-                    throws XMPPException, SmackException, IOException;
+                    throws XMPPException, SmackException, IOException, InterruptedException;
 
-    protected abstract void loginAnonymously() throws XMPPException, SmackException, IOException;
+    protected abstract void loginAnonymously() throws XMPPException, SmackException, IOException, InterruptedException;
 
     @Override
     public final boolean isConnected() {
@@ -487,7 +487,7 @@ public abstract class AbstractXMPPConnection implements XMPPConnection {
     // TODO remove this suppression once "disable legacy session" code has been removed from Smack
     @SuppressWarnings("deprecation")
     protected void bindResourceAndEstablishSession(String resource) throws XMPPErrorException,
-                    IOException, SmackException {
+                    IOException, SmackException, InterruptedException {
 
         // Wait until either:
         // - the servers last features stanza has been parsed

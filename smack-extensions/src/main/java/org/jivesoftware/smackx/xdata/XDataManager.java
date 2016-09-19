@@ -79,7 +79,7 @@ public class XDataManager extends Manager {
      * @see <a href="http://xmpp.org/extensions/xep-0004.html#disco">XEP-0004: Data Forms § 6. Service Discovery</a>
      * @since 4.1
      */
-    public boolean isSupported(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public boolean isSupported(String jid) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return ServiceDiscoveryManager.getInstanceFor(connection()).supportsFeature(jid, NAMESPACE);
     }
 }

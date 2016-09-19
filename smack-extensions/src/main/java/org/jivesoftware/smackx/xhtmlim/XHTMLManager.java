@@ -17,6 +17,8 @@
 
 package org.jivesoftware.smackx.xhtmlim;
 
+import java.util.List;
+
 import org.jivesoftware.smack.ConnectionCreationListener;
 import org.jivesoftware.smack.SmackException.NoResponseException;
 import org.jivesoftware.smack.SmackException.NotConnectedException;
@@ -26,8 +28,6 @@ import org.jivesoftware.smack.XMPPException.XMPPErrorException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.disco.ServiceDiscoveryManager;
 import org.jivesoftware.smackx.xhtmlim.packet.XHTMLExtension;
-
-import java.util.List;
 
 /**
  * Manages XHTML formatted texts within messages. A XHTMLManager provides a high level access to 
@@ -130,7 +130,7 @@ public class XHTMLManager {
      * @throws NotConnectedException 
      */
     public static boolean isServiceEnabled(XMPPConnection connection, String userID)
-                    throws NoResponseException, XMPPErrorException, NotConnectedException {
+            throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return ServiceDiscoveryManager.getInstanceFor(connection).supportsFeature(userID, XHTMLExtension.NAMESPACE);
     }
 }

@@ -107,7 +107,7 @@ class Socks5ClientForInitiator extends Socks5Client {
      * @throws NotConnectedException 
      * @throws SmackException if there was no response from the server.
      */
-    private void activate() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    private void activate() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         Bytestream activate = createStreamHostActivation();
         // if activation fails #nextResultOrThrow() throws an exception
         connection.get().createPacketCollectorAndSend(activate).nextResultOrThrow();

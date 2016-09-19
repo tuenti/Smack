@@ -390,7 +390,7 @@ public class RTPBridge extends IQ {
      * @return the new RTPBridge
      * @throws NotConnectedException 
      */
-    public static RTPBridge getRTPBridge(XMPPConnection connection, String sessionID) throws NotConnectedException {
+    public static RTPBridge getRTPBridge(XMPPConnection connection, String sessionID) throws NotConnectedException, InterruptedException {
 
         if (!connection.isConnected()) {
             return null;
@@ -419,7 +419,7 @@ public class RTPBridge extends IQ {
      * @throws NotConnectedException 
      */
     public static boolean serviceAvailable(XMPPConnection connection) throws NoResponseException,
-                    XMPPErrorException, NotConnectedException {
+            XMPPErrorException, NotConnectedException, InterruptedException {
 
         if (!connection.isConnected()) {
             return false;
@@ -455,7 +455,7 @@ public class RTPBridge extends IQ {
      * @return the RTPBridge
      * @throws NotConnectedException 
      */
-    public static RTPBridge relaySession(XMPPConnection connection, String sessionID, String pass, TransportCandidate proxyCandidate, TransportCandidate localCandidate) throws NotConnectedException {
+    public static RTPBridge relaySession(XMPPConnection connection, String sessionID, String pass, TransportCandidate proxyCandidate, TransportCandidate localCandidate) throws NotConnectedException, InterruptedException {
 
         if (!connection.isConnected()) {
             return null;
@@ -490,7 +490,7 @@ public class RTPBridge extends IQ {
      * @return public IP String or null if not found
      * @throws NotConnectedException 
      */
-    public static String getPublicIP(XMPPConnection xmppConnection) throws NotConnectedException {
+    public static String getPublicIP(XMPPConnection xmppConnection) throws NotConnectedException, InterruptedException {
 
         if (!xmppConnection.isConnected()) {
             return null;

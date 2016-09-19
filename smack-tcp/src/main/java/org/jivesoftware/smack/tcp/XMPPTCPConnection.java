@@ -367,7 +367,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
     }
 
     @Override
-    protected synchronized void loginNonAnonymously(String username, String password, String resource) throws XMPPException, SmackException, IOException {
+    protected synchronized void loginNonAnonymously(String username, String password, String resource) throws XMPPException, SmackException, IOException, InterruptedException {
         if (saslAuthentication.hasNonAnonymousAuthentication()) {
             // Authenticate using SASL
             if (password != null) {
@@ -441,7 +441,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
     }
 
     @Override
-    public synchronized void loginAnonymously() throws XMPPException, SmackException, IOException {
+    public synchronized void loginAnonymously() throws XMPPException, SmackException, IOException, InterruptedException {
         // Wait with SASL auth until the SASL mechanisms have been received
         saslFeatureReceived.checkIfSuccessOrWaitOrThrow();
 
@@ -837,7 +837,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
      * @throws IOException 
      */
     @Override
-    protected void connectInternal() throws SmackException, IOException, XMPPException {
+    protected void connectInternal() throws SmackException, IOException, XMPPException, InterruptedException {
         // Establishes the TCP connection to the server and does setup the reader and writer. Throws an exception if
         // there is an error establishing the connection
         connectUsingConfiguration();

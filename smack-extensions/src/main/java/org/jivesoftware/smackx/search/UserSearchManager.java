@@ -16,14 +16,14 @@
  */
 package org.jivesoftware.smackx.search;
 
+import java.util.List;
+
 import org.jivesoftware.smack.SmackException.NoResponseException;
 import org.jivesoftware.smack.SmackException.NotConnectedException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException.XMPPErrorException;
 import org.jivesoftware.smackx.disco.ServiceDiscoveryManager;
 import org.jivesoftware.smackx.xdata.Form;
-
-import java.util.List;
 
 /**
  * The UserSearchManager is a facade built upon Jabber Search Services (XEP-055) to allow for searching
@@ -67,7 +67,7 @@ public class UserSearchManager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public Form getSearchForm(String searchService) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public Form getSearchForm(String searchService) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return userSearch.getSearchForm(con, searchService);
     }
 
@@ -82,7 +82,7 @@ public class UserSearchManager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public ReportedData getSearchResults(Form searchForm, String searchService) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public ReportedData getSearchResults(Form searchForm, String searchService) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return userSearch.sendSearchForm(con, searchForm, searchService);
     }
 
@@ -95,7 +95,7 @@ public class UserSearchManager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public List<String> getSearchServices() throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public List<String> getSearchServices() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         ServiceDiscoveryManager discoManager = ServiceDiscoveryManager.getInstanceFor(con);
         return discoManager.findServices(UserSearch.NAMESPACE, false, false);
     }

@@ -16,19 +16,19 @@
  */
 package org.jivesoftware.smackx.jingleold.nat;
 
-import org.jivesoftware.smack.SmackException;
-import org.jivesoftware.smack.SmackException.NotConnectedException;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.XMPPException.XMPPErrorException;
-import org.jivesoftware.smackx.jingleold.JingleSession;
-
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.Random;
+
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.SmackException.NotConnectedException;
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.XMPPException.XMPPErrorException;
+import org.jivesoftware.smackx.jingleold.JingleSession;
 
 /**
  * Bridged Resolver use a RTPBridge Service to add a relayed candidate.
@@ -61,7 +61,7 @@ public class BridgedResolver extends TransportResolver {
      * The BridgedResolver takes the IP addresse and ports of a jmf proxy service.
      * @throws NotConnectedException 
      */
-    public synchronized void resolve(JingleSession session) throws XMPPException, NotConnectedException {
+    public synchronized void resolve(JingleSession session) throws XMPPException, NotConnectedException, InterruptedException {
 
         setResolveInit();
 
@@ -98,7 +98,7 @@ public class BridgedResolver extends TransportResolver {
         setResolveEnd();
     }
 
-    public void initialize() throws SmackException, XMPPErrorException {
+    public void initialize() throws SmackException, XMPPErrorException, InterruptedException {
 
         clearCandidates();
 

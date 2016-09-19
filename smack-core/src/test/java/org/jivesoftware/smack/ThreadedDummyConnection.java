@@ -102,7 +102,7 @@ public class ThreadedDummyConnection extends DummyConnection {
         }
     }
 
-    public static ThreadedDummyConnection newInstance() throws SmackException, IOException, XMPPException {
+    public static ThreadedDummyConnection newInstance() throws SmackException, IOException, XMPPException, InterruptedException {
         ThreadedDummyConnection threadedDummyConnection = new ThreadedDummyConnection();
         threadedDummyConnection.connect();
         return threadedDummyConnection;

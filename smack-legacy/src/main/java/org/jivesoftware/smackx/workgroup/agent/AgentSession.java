@@ -266,7 +266,7 @@ public class AgentSession {
      * @throws XMPPException if an exception occurs.
      * @throws SmackException 
      */
-    public void setMetaData(String key, String val) throws XMPPException, SmackException {
+    public void setMetaData(String key, String val) throws XMPPException, SmackException, InterruptedException {
         synchronized (this.metaData) {
             List<String> oldVals = metaData.get(key);
 
@@ -286,7 +286,7 @@ public class AgentSession {
      * @throws XMPPException if an exception occurs.
      * @throws SmackException 
      */
-    public void removeMetaData(String key) throws XMPPException, SmackException {
+    public void removeMetaData(String key) throws XMPPException, SmackException, InterruptedException {
         synchronized (this.metaData) {
             List<String> oldVal = metaData.remove(key);
 
@@ -317,7 +317,7 @@ public class AgentSession {
      * @throws SmackException             assertEquals(SmackException.Type.NO_RESPONSE_FROM_SERVER, e.getType());
             return;
      */
-    public void setOnline(boolean online) throws XMPPException, SmackException {
+    public void setOnline(boolean online) throws XMPPException, SmackException, InterruptedException {
         // If the online status hasn't changed, do nothing.
         if (this.online == online) {
             return;
@@ -377,7 +377,7 @@ public class AgentSession {
      * @throws SmackException 
      * @throws IllegalStateException if the agent is not online with the workgroup.
      */
-    public void setStatus(Presence.Mode presenceMode, int maxChats) throws XMPPException, SmackException {
+    public void setStatus(Presence.Mode presenceMode, int maxChats) throws XMPPException, SmackException, InterruptedException {
         setStatus(presenceMode, maxChats, null);
     }
 
@@ -406,7 +406,7 @@ public class AgentSession {
      * @throws IllegalStateException if the agent is not online with the workgroup.
      */
     public void setStatus(Presence.Mode presenceMode, int maxChats, String status)
-                    throws NoResponseException, XMPPErrorException, NotConnectedException {
+            throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         if (!online) {
             throw new IllegalStateException("Cannot set status when the agent is not online.");
         }
@@ -456,7 +456,7 @@ public class AgentSession {
      * @throws NotConnectedException 
      * @throws IllegalStateException if the agent is not online with the workgroup.
      */
-    public void setStatus(Presence.Mode presenceMode, String status) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void setStatus(Presence.Mode presenceMode, String status) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         if (!online) {
             throw new IllegalStateException("Cannot set status when the agent is not online.");
         }
@@ -508,7 +508,7 @@ public class AgentSession {
      * @throws XMPPException if an error occurs while getting the information.
      * @throws SmackException 
      */
-    public Transcripts getTranscripts(String userID) throws XMPPException, SmackException {
+    public Transcripts getTranscripts(String userID) throws XMPPException, SmackException, InterruptedException {
         return transcriptManager.getTranscripts(workgroupJID, userID);
     }
 
@@ -520,7 +520,7 @@ public class AgentSession {
      * @throws XMPPException if an error occurs while getting the information.
      * @throws SmackException 
      */
-    public Transcript getTranscript(String sessionID) throws XMPPException, SmackException {
+    public Transcript getTranscript(String sessionID) throws XMPPException, SmackException, InterruptedException {
         return transcriptManager.getTranscript(workgroupJID, sessionID);
     }
 
@@ -533,7 +533,7 @@ public class AgentSession {
      * @throws XMPPException if an error occurs while sending the request to the server.
      * @throws SmackException 
      */
-    public Form getTranscriptSearchForm() throws XMPPException, SmackException {
+    public Form getTranscriptSearchForm() throws XMPPException, SmackException, InterruptedException {
         return transcriptSearchManager.getSearchForm(XmppStringUtils.parseDomain(workgroupJID));
     }
 
@@ -547,7 +547,7 @@ public class AgentSession {
      * @throws SmackException 
      * @throws XMPPException 
      */
-    public ReportedData searchTranscripts(Form completedForm) throws XMPPException, SmackException {
+    public ReportedData searchTranscripts(Form completedForm) throws XMPPException, SmackException, InterruptedException {
         return transcriptSearchManager.submitSearch(XmppStringUtils.parseDomain(workgroupJID),
                 completedForm);
     }
@@ -563,7 +563,7 @@ public class AgentSession {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public OccupantsInfo getOccupantsInfo(String roomID) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public OccupantsInfo getOccupantsInfo(String roomID) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         OccupantsInfo request = new OccupantsInfo(roomID);
         request.setType(IQ.Type.get);
         request.setTo(workgroupJID);
@@ -814,7 +814,7 @@ public class AgentSession {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public void setNote(String sessionID, String note) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public void setNote(String sessionID, String note) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         ChatNotes notes = new ChatNotes();
         notes.setType(IQ.Type.set);
         notes.setTo(workgroupJID);
@@ -832,7 +832,7 @@ public class AgentSession {
      * @throws NoResponseException
      * @throws NotConnectedException 
      */
-    public ChatNotes getNote(String sessionID) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public ChatNotes getNote(String sessionID) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         ChatNotes request = new ChatNotes();
         request.setType(IQ.Type.get);
         request.setTo(workgroupJID);
@@ -851,7 +851,7 @@ public class AgentSession {
      * @throws XMPPException if an error occurs while retrieving the AgentChatHistory.
      * @throws NotConnectedException 
      */
-    public AgentChatHistory getAgentHistory(String jid, int maxSessions, Date startDate) throws XMPPException, NotConnectedException {
+    public AgentChatHistory getAgentHistory(String jid, int maxSessions, Date startDate) throws XMPPException, NotConnectedException, InterruptedException {
         AgentChatHistory request;
         if (startDate != null) {
             request = new AgentChatHistory(jid, maxSessions, startDate);
@@ -877,7 +877,7 @@ public class AgentSession {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public SearchSettings getSearchSettings() throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public SearchSettings getSearchSettings() throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         SearchSettings request = new SearchSettings();
         request.setType(IQ.Type.get);
         request.setTo(workgroupJID);
@@ -895,7 +895,7 @@ public class AgentSession {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public MacroGroup getMacros(boolean global) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public MacroGroup getMacros(boolean global) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         Macros request = new Macros();
         request.setType(IQ.Type.get);
         request.setTo(workgroupJID);
@@ -913,7 +913,7 @@ public class AgentSession {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public void saveMacros(MacroGroup group) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void saveMacros(MacroGroup group) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         Macros request = new Macros();
         request.setType(IQ.Type.set);
         request.setTo(workgroupJID);
@@ -931,7 +931,7 @@ public class AgentSession {
      * @throws XMPPException if an error occurs while getting information from the server.
      * @throws NotConnectedException 
      */
-    public Map<String, List<String>> getChatMetadata(String sessionID) throws XMPPException, NotConnectedException {
+    public Map<String, List<String>> getChatMetadata(String sessionID) throws XMPPException, NotConnectedException, InterruptedException {
         ChatMetadata request = new ChatMetadata();
         request.setType(IQ.Type.get);
         request.setTo(workgroupJID);
@@ -970,8 +970,7 @@ public class AgentSession {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public void sendRoomInvitation(RoomInvitation.Type type, String invitee, String sessionID, String reason) throws NoResponseException, XMPPErrorException, NotConnectedException
-            {
+    public void sendRoomInvitation(RoomInvitation.Type type, String invitee, String sessionID, String reason) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         final RoomInvitation invitation = new RoomInvitation(type, invitee, sessionID, reason);
         IQ iq = new RoomInvitation.RoomInvitationIQ(invitation);
         iq.setType(IQ.Type.set);
@@ -1007,8 +1006,7 @@ public class AgentSession {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public void sendRoomTransfer(RoomTransfer.Type type, String invitee, String sessionID, String reason) throws NoResponseException, XMPPErrorException, NotConnectedException
-            {
+    public void sendRoomTransfer(RoomTransfer.Type type, String invitee, String sessionID, String reason) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         final RoomTransfer transfer = new RoomTransfer(type, invitee, sessionID, reason);
         IQ iq = new RoomTransfer.RoomTransferIQ(transfer);
         iq.setType(IQ.Type.set);
@@ -1028,7 +1026,7 @@ public class AgentSession {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public GenericSettings getGenericSettings(XMPPConnection con, String query) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public GenericSettings getGenericSettings(XMPPConnection con, String query) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         GenericSettings setting = new GenericSettings();
         setting.setType(IQ.Type.get);
         setting.setTo(workgroupJID);
@@ -1038,7 +1036,7 @@ public class AgentSession {
         return response;
     }
 
-    public boolean hasMonitorPrivileges(XMPPConnection con) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public boolean hasMonitorPrivileges(XMPPConnection con) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         MonitorPacket request = new MonitorPacket();
         request.setType(IQ.Type.get);
         request.setTo(workgroupJID);
@@ -1047,7 +1045,7 @@ public class AgentSession {
         return response.isMonitor();
     }
 
-    public void makeRoomOwner(XMPPConnection con, String sessionID) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public void makeRoomOwner(XMPPConnection con, String sessionID) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         MonitorPacket request = new MonitorPacket();
         request.setType(IQ.Type.set);
         request.setTo(workgroupJID);

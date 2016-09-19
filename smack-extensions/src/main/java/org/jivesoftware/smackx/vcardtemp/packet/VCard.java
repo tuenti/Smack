@@ -546,7 +546,7 @@ public class VCard extends IQ {
      * @deprecated use {@link VCardManager#saveVCard(VCard)} instead.
      */
     @Deprecated
-    public void save(XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void save(XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         VCardManager.getInstanceFor(connection).saveVCard(this);
     }
 
@@ -559,7 +559,7 @@ public class VCard extends IQ {
      * @deprecated use {@link VCardManager#loadVCard()} instead.
      */
     @Deprecated
-    public void load(XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException  {
+    public void load(XMPPConnection connection) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         load(connection, null);
     }
 
@@ -571,7 +571,7 @@ public class VCard extends IQ {
      * @deprecated use {@link VCardManager#loadVCard(String)} instead.
      */
     @Deprecated
-    public void load(XMPPConnection connection, String user) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public void load(XMPPConnection connection, String user) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         VCard result = VCardManager.getInstanceFor(connection).loadVCard(user);
         copyFieldsFrom(result);
     }

@@ -400,7 +400,7 @@ public class InBandBytestreamManager implements BytestreamManager {
      *         user prefers smaller block sizes
      * @throws SmackException if there was no response from the server.
      */
-    public InBandBytestreamSession establishSession(String targetJID) throws XMPPException, SmackException {
+    public InBandBytestreamSession establishSession(String targetJID) throws XMPPException, SmackException, InterruptedException {
         String sessionID = getNextSessionID();
         return establishSession(targetJID, sessionID);
     }
@@ -418,7 +418,7 @@ public class InBandBytestreamManager implements BytestreamManager {
      * @throws NotConnectedException 
      */
     public InBandBytestreamSession establishSession(String targetJID, String sessionID)
-                    throws NoResponseException, XMPPErrorException, NotConnectedException {
+            throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         Open byteStreamRequest = new Open(sessionID, this.defaultBlockSize, this.stanza);
         byteStreamRequest.setTo(targetJID);
 

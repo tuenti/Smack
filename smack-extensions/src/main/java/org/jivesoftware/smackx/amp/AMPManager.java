@@ -87,7 +87,7 @@ public class AMPManager {
      * @throws NoResponseException 
      * @throws NotConnectedException 
      */
-    public static boolean isActionSupported(XMPPConnection connection, AMPExtension.Action action) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public static boolean isActionSupported(XMPPConnection connection, AMPExtension.Action action) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         String featureName = AMPExtension.NAMESPACE + "?action=" + action.toString();
         return isFeatureSupportedByServer(connection, featureName, AMPExtension.NAMESPACE);
     }
@@ -104,12 +104,12 @@ public class AMPManager {
      * @see AMPExpireAtCondition
      * @see AMPMatchResourceCondition
      */
-    public static boolean isConditionSupported(XMPPConnection connection, String conditionName) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    public static boolean isConditionSupported(XMPPConnection connection, String conditionName) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         String featureName = AMPExtension.NAMESPACE + "?condition=" + conditionName;
         return isFeatureSupportedByServer(connection, featureName, AMPExtension.NAMESPACE);
     }
 
-    private static boolean isFeatureSupportedByServer(XMPPConnection connection, String featureName, String node) throws NoResponseException, XMPPErrorException, NotConnectedException {
+    private static boolean isFeatureSupportedByServer(XMPPConnection connection, String featureName, String node) throws NoResponseException, XMPPErrorException, NotConnectedException, InterruptedException {
         return ServiceDiscoveryManager.getInstanceFor(connection).supportsFeature(node, featureName);
     }
 }

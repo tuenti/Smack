@@ -277,7 +277,7 @@ public class JingleSession extends JingleNegotiator implements MediaReceivedList
      * @throws XMPPException
      * @throws SmackException 
      */
-    public synchronized void receivePacketAndRespond(IQ iq) throws XMPPException, SmackException {
+    public synchronized void receivePacketAndRespond(IQ iq) throws XMPPException, SmackException, InterruptedException {
         List<IQ> responses = new ArrayList<IQ>();
 
         String responseId = null;
@@ -345,7 +345,7 @@ public class JingleSession extends JingleNegotiator implements MediaReceivedList
      * @throws XMPPException
      * @throws SmackException 
      */
-    public List<IQ> dispatchIncomingPacket(IQ iq, String id) throws XMPPException, SmackException {
+    public List<IQ> dispatchIncomingPacket(IQ iq, String id) throws XMPPException, SmackException, InterruptedException {
         List<IQ> responses = new ArrayList<IQ>();
         IQ response = null;
 
@@ -816,7 +816,7 @@ public class JingleSession extends JingleNegotiator implements MediaReceivedList
 
         JingleTransportListener jingleTransportListener = new JingleTransportListener() {
 
-            public void transportEstablished(TransportCandidate local, TransportCandidate remote) throws NotConnectedException {
+            public void transportEstablished(TransportCandidate local, TransportCandidate remote) throws NotConnectedException, InterruptedException {
                 if (isFullyEstablished()) {
  
                 	// Indicate that this session is active.
@@ -1054,7 +1054,7 @@ public class JingleSession extends JingleNegotiator implements MediaReceivedList
      * @throws IllegalStateException
      * @throws SmackException 
      */
-    public void startOutgoing() throws IllegalStateException, SmackException {
+    public void startOutgoing() throws IllegalStateException, SmackException, InterruptedException {
 
         updatePacketListener();
         setSessionState(JingleSessionStatePending.getInstance());
